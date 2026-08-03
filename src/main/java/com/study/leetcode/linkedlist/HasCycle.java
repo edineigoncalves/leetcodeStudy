@@ -13,7 +13,8 @@ public class HasCycle {
         System.out.println(hasCycle(list1));
     }
 
-    static boolean hasCycle(ListNode head) {
+    //first solution
+    /*static boolean hasCycle(ListNode head) {
 
         Set<ListNode> setListNodeCheck = new HashSet<>();
         ListNode internal = head;
@@ -24,6 +25,23 @@ public class HasCycle {
 
             setListNodeCheck.add(internal);
             internal = internal.next;
+        }
+
+        return false;
+    }*/
+
+    //better solution
+    static boolean hasCycle(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while(fast!=null && fast.next!=null){
+
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if(slow == fast)
+                return true;
         }
 
         return false;
