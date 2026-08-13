@@ -1,7 +1,5 @@
 package com.study.leetcode.linkedlist;
 
-import java.util.HashSet;
-
 public class FindDuplicate {
 
     public static void main(String[] args) {
