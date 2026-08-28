@@ -13,45 +13,28 @@ public class EvalRPN {
     static int evalRPN(String[] tokens) {
         Deque<Integer> stack = new ArrayDeque<>();
 
-        for(int i=0; i<tokens.length; i++){
-            switch (tokens[i]){
-                case "+": {
-                    if(stack.size()>1){
-                        int right = stack.pop();
-                        int left = stack.pop();
-                        stack.push(right+left);
-                    }
+        for(String token : tokens){
+            switch(token) {
+                case "+":
+                    stack.push(stack.pop() + stack.pop());
                     break;
-                }
-                case "-": {
-                    if(stack.size()>1){
-                        int right = stack.pop();
-                        int left = stack.pop();
-                        stack.push(left-right);
-                    }
-                    break;
-                }
+                case "-":
                 case "/": {
-                    if(stack.size()>1){
-                        int right = stack.pop();
-                        int left = stack.pop();
-                        if(right!=0)
-                            stack.push(left/right);
-                    }
+                    int right = stack.pop();
+                    int left = stack.pop();
+                    if (token.equals("-"))
+                        stack.push(left - right);
+                    else
+                        stack.push(left / right);
                     break;
                 }
-                case "*": {
-                    if(stack.size()>1){
-                        int right = stack.pop();
-                        int left = stack.pop();
-                        stack.push(right*left);
-                    }
+                case "*":
+                    stack.push(stack.pop() * stack.pop());
                     break;
-                }
                 default:
-                    stack.push(Integer.parseInt(tokens[i]));
+                    stack.push(Integer.parseInt(token));
             }
         }
-        return !stack.isEmpty() ? stack.peek() : 0;
+        return stack.pop();
     }
 }
